@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Autocomplete, TextField } from "@mui/material";
+import { Grid, Autocomplete, TextField, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import StickyNote from "./StickyNote";
 
@@ -14,6 +14,36 @@ function Fridge() {
 	const classes = useStyles();
 	const [value, setValue] = useState('');
 	const [ingredients, setIngredients] = useState([]);
+
+	const getRecipesByIngredients = () => {
+		const axios = require("axios").default;
+
+		let url = "https://api.spoonacular.com/recipes/findByIngredients?ingredients=";
+
+		ingredients.forEach(ingredient => url += ingredient + ",");
+
+		url += "&apiKey=a5d95ac3b32a423c976648d39c99f694"
+
+		var options = {
+			method: 'GET',
+			url: url,
+			params: {
+			  number: '5',
+			  type: 'main course'
+			}
+		  };
+
+		axios.request(options)
+			.then(function (response) 
+			{
+				console.log(response.data);
+			})
+			.catch(function (error) 
+			{
+				console.error(error);
+			});
+	}
+
 	return (
 		<Grid container className={classes.pageContainer}>
 			<Grid item xs/>
@@ -38,6 +68,11 @@ function Fridge() {
 				<StickyNote />
 			</Grid>
 			<Grid item xs/>
+			<Button
+				onClick={getRecipesByIngredients}
+			>
+				Test
+			</Button>
 		</Grid>
 	)
 }
