@@ -1,25 +1,24 @@
 import { Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import StickyNote from "./StickyNote";
 
 const useStyles = makeStyles({
 	pageContainer: {
 		height: '100vh',
-		marginTop: '20px'
+		padding: '2rem 0rem',
 	}
 });
 
-function Fridge(props) {
+function Fridge() {
 	const classes = useStyles();
 	return (
-		<div>
-			<Grid container className={classes.pageContainer}>
-				<Grid xs/>
-				<Grid xs={8} style={{backgroundColor: 'grey'}}>
-					test
-				</Grid>
-				<Grid xs/>
+		<Grid container className={classes.pageContainer}>
+			<Grid item xs/>
+			<Grid item xs={6} style={{backgroundColor: 'grey'}}>
+				<StickyNote />
 			</Grid>
-		</div>
+			<Grid item xs/>
+		</Grid>
 	)
 }
 
