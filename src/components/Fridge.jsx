@@ -33,7 +33,9 @@ function Fridge() {
 						setValue(newInputValue);
 						if ((event.code === 'Enter' && event.type === 'keydown') || (event.type === 'click')) {
 							event.defaultMuiPrevented = true;
-							setIngredients(prevIngredients => [...prevIngredients, newInputValue]);
+							if (ingredients.indexOf(newInputValue) === -1) {
+								setIngredients(prevIngredients => [...prevIngredients, newInputValue]);
+							}
 						}
 					}}
 				/>
