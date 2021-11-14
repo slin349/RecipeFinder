@@ -1,9 +1,10 @@
 import './App.css';
+import Fridge from './components/Fridge';
 
 function App() {
   return (
     <div >
-      hello world
+      <Fridge />
     </div>
   );
 }
