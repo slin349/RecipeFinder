@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Grid, Autocomplete, TextField } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import StickyNote from "./StickyNote";
+import Chip from '@mui/material/Chip';
 
 const useStyles = makeStyles({
 	pageContainer: {
@@ -14,6 +15,10 @@ function Fridge() {
 	const classes = useStyles();
 	const [value, setValue] = useState('');
 	const [ingredients, setIngredients] = useState([]);
+	const handleDelete = (ingredientToDelete) => {
+		setIngredients((ingredients) => ingredients.filter((ingredient) => ingredient !== ingredientToDelete));
+	}
+
 	return (
 		<Grid container className={classes.pageContainer}>
 			<Grid item xs/>
@@ -33,7 +38,7 @@ function Fridge() {
 					}}
 				/>
 				{ingredients.map((item, index) => (
-					<div key={index}>{item}</div>
+					<Chip label={item} variant="outlined" onDelete={() => handleDelete(item)} />
 				))}
 				<StickyNote />
 			</Grid>
