@@ -24,11 +24,22 @@ const useStyles = makeStyles({
 
 function Fridge() {
 	const classes = useStyles();
-	const [value, setValue] = useState([]);
+	const [value, setValue] = useState('');
+	const [inputValue, setInputValue] = useState('');
 	const [ingredients, setIngredients] = useState([]);
 	const [recipes, setRecipes] = useState([]);
 	const handleDelete = (ingredientToDelete) => {
 		setIngredients((ingredients) => ingredients.filter((ingredient) => ingredient !== ingredientToDelete));
+	}
+	const handleChange = (event, newInputValue) => {
+		setValue(newInputValue);
+		if ((event.code === 'Enter' && event.type === 'keydown') || (event.type === 'click')) {
+			if (ingredients.indexOf(newInputValue) === -1 && newInputValue !== null) {
+				setIngredients(prevIngredients => [...prevIngredients, newInputValue]);
+			}
+			setInputValue('');
+			setValue('');
+		}
 	}
 
 	const getRecipesByIngredients = () => {
@@ -76,14 +87,10 @@ function Fridge() {
 						options={['apple', 'banana', 'pear']} 
 						renderInput={(params) => <TextField {...params} label="add your ingredient" />}
 						value={value}
-						onChange={(event, newInputValue) => {
-							if ((event.code === 'Enter' && event.type === 'keydown') || (event.type === 'click')) {
-								setValue(newInputValue);
-								if (ingredients.indexOf(newInputValue) === -1 && newInputValue !== null) {
-									setIngredients(prevIngredients => [...prevIngredients, newInputValue]);
-								}
-								setValue([]);
-							}
+						inputValue={inputValue}
+						onChange={(event, item) => handleChange(event, item)}
+						onInputChange={(event, newInputValue) => {
+							setInputValue(newInputValue);
 						}}
 					/>
 					{ingredients.map((item, index) => (
