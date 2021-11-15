@@ -1,5 +1,5 @@
-import React from 'react'
-import { Grid, Typography, Button} from '@mui/material';
+import React, { useState } from 'react'
+import { Button, Grid, Modal, Typography, Box } from '@mui/material';
 import { makeStyles } from "@mui/styles";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
@@ -48,15 +48,30 @@ const styles = {
         position: 'absolute',
         top: '0rem',
         left: '4rem',
-    }
+    },
+		modalButton: {
+		},
+		modal: {
+			position: 'absolute',
+			top: '50%',
+			left: '50%',
+			transform: 'translate(-50%, -50%)',
+			width: 400,
+			backgroundColor: 'white',
+			border: '2px solid #000',
+			padding: '5px'
+		}
 };
 
 const useStyles = makeStyles(styles);
 
 const StickyNote = (props) => {
-    const classes = useStyles();
-    const randomInt = Math.floor(Math.random() * 5);
+	const classes = useStyles();
+	const randomInt = Math.floor(Math.random() * 5);
 	const { title, recipeId } = props;
+	const [open, setOpen] = useState(false);
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
 
     const getInstructionsByRecipeId = () => {
         const axios = require("axios").default;
@@ -83,7 +98,8 @@ const StickyNote = (props) => {
 			});
     }
 
-    return (
+	return (
+		<>
 			<Grid 
 				item
 				className={
@@ -99,8 +115,22 @@ const StickyNote = (props) => {
                 <Button onClick={getInstructionsByRecipeId}>
                     instructions
                 </Button>
+				<Button onClick={handleOpen} className={classes.modalButton}>
+					More Info
+				</Button>
 			</Grid>
-    )
+			<Modal
+				open={open}
+				onClose={handleClose}
+			>
+				<Box className={classes.modal}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Text in a modal
+          </Typography>
+        </Box>
+			</Modal>
+		</>
+	)
 };
 
 export default StickyNote;
