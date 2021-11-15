@@ -26,7 +26,7 @@ function Fridge() {
 	const classes = useStyles();
 	const [value, setValue] = useState('');
 	const [ingredients, setIngredients] = useState([]);
-	
+
 	const handleDelete = (ingredientToDelete) => {
 		setIngredients((ingredients) => ingredients.filter((ingredient) => ingredient !== ingredientToDelete));
 	}
@@ -82,7 +82,7 @@ function Fridge() {
 						}}
 					/>
 					{ingredients.map((item, index) => (
-						<Chip label={item} variant="outlined" onDelete={() => handleDelete(item)} className={classes.chip} />
+						<Chip key={index} label={item} variant="outlined" onDelete={() => handleDelete(item)} className={classes.chip} />
 					))}
 				</Grid>
 				<Grid item xs={4}>
