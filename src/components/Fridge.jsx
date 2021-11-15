@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 
 function Fridge() {
 	const classes = useStyles();
-	const [value, setValue] = useState('');
+	const [value, setValue] = useState([]);
 	const [ingredients, setIngredients] = useState([]);
 	const [recipes, setRecipes] = useState([]);
 	const handleDelete = (ingredientToDelete) => {
@@ -76,12 +76,12 @@ function Fridge() {
 						renderInput={(params) => <TextField {...params} label="add your ingredient" />}
 						value={value}
 						onChange={(event, newInputValue) => {
-							setValue(newInputValue);
 							if ((event.code === 'Enter' && event.type === 'keydown') || (event.type === 'click')) {
-								event.defaultMuiPrevented = true;
-								if (ingredients.indexOf(newInputValue) === -1) {
+								setValue(newInputValue);
+								if (ingredients.indexOf(newInputValue) === -1 && newInputValue !== null) {
 									setIngredients(prevIngredients => [...prevIngredients, newInputValue]);
 								}
+								setValue([]);
 							}
 						}}
 					/>
