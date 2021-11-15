@@ -70,8 +70,35 @@ const StickyNote = (props) => {
 	const randomInt = Math.floor(Math.random() * 5);
 	const { title, recipeId } = props;
 	const [open, setOpen] = useState(false);
-	const handleOpen = () => setOpen(true);
+    const [recipeInstructions, setRecipeInstructions] = useState([]);
 	const handleClose = () => setOpen(false);
+
+    const getInstructionsByRecipeId = () => {
+        setOpen(true);
+        const axios = require("axios").default;
+
+        let url = `https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=a5d95ac3b32a423c976648d39c99f694`;
+    
+        var options = {
+            method: 'GET',
+			url: url,
+			params: {
+			  stepBreakdown: 'true',
+			}
+        }
+
+        axios.request(options)
+			.then(function (response) 
+			{
+                console.log(response);
+                console.log(response.data[0].steps);
+                setRecipeInstructions(response.data[0].steps);
+			})
+			.catch(function (error) 
+			{
+				console.error(error);
+			});
+    }
 
 	return (
 		<>
@@ -87,7 +114,7 @@ const StickyNote = (props) => {
 				)}
 				<Typography>{title}</Typography>
 				<Typography>{recipeId}</Typography>
-				<Button onClick={handleOpen} className={classes.modalButton}>
+				<Button onClick={getInstructionsByRecipeId} className={classes.modalButton}>
 					More Info
 				</Button>
 			</Grid>
@@ -96,10 +123,10 @@ const StickyNote = (props) => {
 				onClose={handleClose}
 			>
 				<Box className={classes.modal}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-        </Box>
+                {recipeInstructions.map((instruction, index) => (
+                    <Typography key={index}>{instruction.number}: {instruction.step}</Typography>
+                ))}
+                </Box>
 			</Modal>
 		</>
 	)
