@@ -68,7 +68,7 @@ const useStyles = makeStyles(styles);
 const StickyNote = (props) => {
 	const classes = useStyles();
 	const randomInt = Math.floor(Math.random() * 5);
-	const { title, recipeId } = props;
+	const { title, recipeId, image } = props;
 	const [open, setOpen] = useState(false);
 	const handleClose = () => setOpen(false);
 
@@ -111,7 +111,6 @@ const StickyNote = (props) => {
 						<FiberManualRecordIcon className={classes.pin}/>
 				)}
 				<Typography>{title}</Typography>
-				<Typography>{recipeId}</Typography>
                 <Button onClick={getInstructionsByRecipeId}>
                     instructions
                 </Button>

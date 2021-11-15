@@ -54,7 +54,8 @@ function Fridge() {
 			{
 				const newRecipes = [];
 				response.data.forEach(res => {
-					newRecipes.push({id: res.id, title: res.title});
+					console.log(res.image);
+					newRecipes.push({id: res.id, title: res.title, image: res.image});
 				});
 				setRecipes(newRecipes);
 			})
