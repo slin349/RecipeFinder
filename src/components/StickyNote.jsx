@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, Button} from '@mui/material';
 import { makeStyles } from "@mui/styles";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
@@ -56,7 +56,33 @@ const useStyles = makeStyles(styles);
 const StickyNote = (props) => {
     const classes = useStyles();
     const randomInt = Math.floor(Math.random() * 5);
-		const { title, recipeId } = props;
+	const { title, recipeId } = props;
+
+    const getInstructionsByRecipeId = () => {
+        const axios = require("axios").default;
+
+        let url = `https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=a5d95ac3b32a423c976648d39c99f694`;
+    
+        var options = {
+            method: 'GET',
+			url: url,
+			params: {
+			  stepBreakdown: 'true',
+			}
+        }
+
+        axios.request(options)
+			.then(function (response) 
+			{
+                console.log(response);
+                console.log(response.data[0].steps);
+			})
+			.catch(function (error) 
+			{
+				console.error(error);
+			});
+    }
+
     return (
 			<Grid 
 				item
@@ -70,6 +96,9 @@ const StickyNote = (props) => {
 				)}
 				<Typography>{title}</Typography>
 				<Typography>{recipeId}</Typography>
+                <Button onClick={getInstructionsByRecipeId}>
+                    instructions
+                </Button>
 			</Grid>
     )
 };

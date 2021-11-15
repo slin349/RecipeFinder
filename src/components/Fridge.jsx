@@ -47,13 +47,12 @@ function Fridge() {
 			  number: '5',
 			  type: 'main course'
 			}
-		  };
+		};
 
 		axios.request(options)
 			.then(function (response) 
 			{
 				const newRecipes = [];
-				console.log(response.data);
 				response.data.forEach(res => {
 					newRecipes.push({id: res.id, title: res.title});
 				});
@@ -68,8 +67,8 @@ function Fridge() {
 	return (
 		<Grid container className={classes.pageContainer}>
 			<Grid item xs/>
-			<Grid container item xs={8} style={{backgroundColor: 'lightgrey'}}>
-				<Grid item xs={8} className={classes.contentContainer}>
+			<Grid container item xs={8} style={{backgroundColor: 'lightgrey'}} className={classes.contentContainer}>
+				<Grid item xs={8}>
 					<Autocomplete 
 						freeSolo 
 						fullWidth 
@@ -91,7 +90,9 @@ function Fridge() {
 					))}
 				</Grid>
 				<Grid item xs={4}>
-					
+					<Button variant="outlined" onClick={getRecipesByIngredients} style={{marginLeft: '25px'}}>
+						Search Recipes
+					</Button>
 				</Grid>
 				<Grid container>
 					{recipes.map((recipe, index) => (
@@ -100,11 +101,6 @@ function Fridge() {
 				</Grid>
 			</Grid>
 			<Grid item xs/>
-			<Button
-				onClick={getRecipesByIngredients}
-			>
-				Test
-			</Button>
 		</Grid>
 	)
 }
