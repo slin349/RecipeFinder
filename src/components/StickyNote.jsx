@@ -56,10 +56,12 @@ const styles = {
 			top: '50%',
 			left: '50%',
 			transform: 'translate(-50%, -50%)',
-			width: 400,
+			width: '50rem',
 			backgroundColor: 'white',
 			border: '0.2rem solid #000',
-			padding: '0.5rem'
+            padding: '0.5rem',
+            height: '75%',
+            overflow: 'scroll',
 		}
 };
 
