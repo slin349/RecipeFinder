@@ -70,10 +70,10 @@ const StickyNote = (props) => {
 	const randomInt = Math.floor(Math.random() * 5);
 	const { title, recipeId } = props;
 	const [open, setOpen] = useState(false);
-	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 
     const getInstructionsByRecipeId = () => {
+        setOpen(true);
         const axios = require("axios").default;
 
         let url = `https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=a5d95ac3b32a423c976648d39c99f694`;
@@ -115,7 +115,7 @@ const StickyNote = (props) => {
                 <Button onClick={getInstructionsByRecipeId}>
                     instructions
                 </Button>
-				<Button onClick={handleOpen} className={classes.modalButton}>
+				<Button onClick={getInstructionsByRecipeId} className={classes.modalButton}>
 					More Info
 				</Button>
 			</Grid>
