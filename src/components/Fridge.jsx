@@ -52,7 +52,15 @@ function Fridge() {
 		axios.request(options)
 			.then(function (response) 
 			{
+				let ids = [];
+				let titles = [];
 				console.log(response.data);
+				response.data.forEach(res => {
+					ids.push(res.id);
+					titles.push(res.title);
+				});
+				console.log(ids)
+				console.log(titles)
 			})
 			.catch(function (error) 
 			{
