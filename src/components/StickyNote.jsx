@@ -70,6 +70,7 @@ const StickyNote = (props) => {
 	const randomInt = Math.floor(Math.random() * 5);
 	const { title, recipeId, image } = props;
 	const [open, setOpen] = useState(false);
+    const [recipeInstructions, setRecipeInstructions] = useState([]);
 	const handleClose = () => setOpen(false);
 
     const getInstructionsByRecipeId = () => {
@@ -91,6 +92,7 @@ const StickyNote = (props) => {
 			{
                 console.log(response);
                 console.log(response.data[0].steps);
+                setRecipeInstructions(response.data[0].steps);
 			})
 			.catch(function (error) 
 			{
@@ -111,9 +113,7 @@ const StickyNote = (props) => {
 						<FiberManualRecordIcon className={classes.pin}/>
 				)}
 				<Typography>{title}</Typography>
-                <Button onClick={getInstructionsByRecipeId}>
-                    instructions
-                </Button>
+				<Typography>{recipeId}</Typography>
 				<Button onClick={getInstructionsByRecipeId} className={classes.modalButton}>
 					More Info
 				</Button>
@@ -123,10 +123,10 @@ const StickyNote = (props) => {
 				onClose={handleClose}
 			>
 				<Box className={classes.modal}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-        </Box>
+                {recipeInstructions.map((instruction, index) => (
+                    <Typography key={index}>{instruction.number}: {instruction.step}</Typography>
+                ))}
+                </Box>
 			</Modal>
 		</>
 	)
