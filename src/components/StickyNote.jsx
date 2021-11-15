@@ -58,8 +58,8 @@ const styles = {
 			transform: 'translate(-50%, -50%)',
 			width: 400,
 			backgroundColor: 'white',
-			border: '2px solid #000',
-			padding: '5px'
+			border: '0.2rem solid #000',
+			padding: '0.5rem'
 		}
 };
 
