@@ -65,7 +65,6 @@ function Fridge() {
 			{
 				const newRecipes = [];
 				response.data.forEach(res => {
-					console.log(res.image);
 					newRecipes.push({id: res.id, title: res.title, image: res.image});
 				});
 				setRecipes(newRecipes);
@@ -104,7 +103,7 @@ function Fridge() {
 				</Grid>
 				<Grid container>
 					{recipes.map((recipe, index) => (
-						<StickyNote key={index} title={recipe.title} recipeId={recipe.id}/>
+						<StickyNote key={index} title={recipe.title} recipeId={recipe.id} image={recipe.image}/>
 					))}
 				</Grid>
 			</Grid>

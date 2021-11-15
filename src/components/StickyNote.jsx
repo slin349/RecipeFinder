@@ -92,8 +92,6 @@ const StickyNote = (props) => {
         axios.request(options)
 			.then(function (response) 
 			{
-                console.log(response);
-                console.log(response.data[0].steps);
                 setRecipeInstructions(response.data[0].steps);
 			})
 			.catch(function (error) 
@@ -115,7 +113,6 @@ const StickyNote = (props) => {
 						<FiberManualRecordIcon className={classes.pin}/>
 				)}
 				<Typography>{title}</Typography>
-				<Typography>{recipeId}</Typography>
 				<Button onClick={getInstructionsByRecipeId} className={classes.modalButton}>
 					More Info
 				</Button>
@@ -125,6 +122,7 @@ const StickyNote = (props) => {
 				onClose={handleClose}
 			>
 				<Box className={classes.modal}>
+                    <img src={image} alt=''/>
                 {recipeInstructions.map((instruction, index) => (
                     <Typography key={index}>{instruction.number}: {instruction.step}</Typography>
                 ))}
