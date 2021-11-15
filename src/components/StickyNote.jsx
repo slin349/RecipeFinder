@@ -67,10 +67,9 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-const StickyNote = (props) => {
+const StickyNote = ({ title, recipeId, image }) => {
 	const classes = useStyles();
 	const randomInt = Math.floor(Math.random() * 5);
-	const { title, recipeId, image } = props;
 	const [open, setOpen] = useState(false);
     const [recipeInstructions, setRecipeInstructions] = useState([]);
 	const handleClose = () => setOpen(false);
