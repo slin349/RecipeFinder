@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { makeStyles } from "@mui/styles";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
@@ -52,31 +52,25 @@ const styles = {
 };
 
 const useStyles = makeStyles(styles);
-const fakeArray = ['apple', 'bee', 'eeee'];
 
-const StickyNote = () => {
+const StickyNote = (props) => {
     const classes = useStyles();
-
+    const randomInt = Math.floor(Math.random() * 5);
+		const { title, recipeId } = props;
     return (
-        <Grid container>
-            {fakeArray.map((item, index) => {
-                const randomInt = Math.floor(Math.random() * 5);
-                return (
-                    <Grid 
-                        item
-                        className={
-                            randomInt === 0 ? classes.noteBrightPink : randomInt === 1 ? classes.notePink : randomInt === 2 ? classes.noteBlue : 
-                            randomInt === 3 ? classes.noteLightYellow : classes.noteYellow
-                        }
-                        key={index}
-                    >
-                        {randomInt % 2 === 0 && (
-                            <FiberManualRecordIcon className={classes.pin}/>
-                        )}
-                    </Grid>
-                )
-            })}
-        </Grid>
+			<Grid 
+				item
+				className={
+						randomInt === 0 ? classes.noteBrightPink : randomInt === 1 ? classes.notePink : randomInt === 2 ? classes.noteBlue : 
+						randomInt === 3 ? classes.noteLightYellow : classes.noteYellow
+				}
+			>
+				{randomInt % 2 === 0 && (
+						<FiberManualRecordIcon className={classes.pin}/>
+				)}
+				<Typography>{title}</Typography>
+				<Typography>{recipeId}</Typography>
+			</Grid>
     )
 };
 

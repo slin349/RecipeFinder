@@ -26,6 +26,7 @@ function Fridge() {
 	const classes = useStyles();
 	const [value, setValue] = useState('');
 	const [ingredients, setIngredients] = useState([]);
+	const [recipes, setRecipes] = useState([]);
 	
 	const handleDelete = (ingredientToDelete) => {
 		setIngredients((ingredients) => ingredients.filter((ingredient) => ingredient !== ingredientToDelete));
@@ -52,15 +53,12 @@ function Fridge() {
 		axios.request(options)
 			.then(function (response) 
 			{
-				let ids = [];
-				let titles = [];
+				const newRecipes = [];
 				console.log(response.data);
 				response.data.forEach(res => {
-					ids.push(res.id);
-					titles.push(res.title);
+					newRecipes.push({id: res.id, title: res.title});
 				});
-				console.log(ids)
-				console.log(titles)
+				setRecipes(newRecipes);
 			})
 			.catch(function (error) 
 			{
@@ -96,7 +94,11 @@ function Fridge() {
 				<Grid item xs={4}>
 					
 				</Grid>
-				<StickyNote />
+				<Grid container>
+					{recipes.map((recipe, index) => (
+						<StickyNote key={index} title={recipe.title} recipeId={recipe.id}/>
+					))}
+				</Grid>
 			</Grid>
 			<Grid item xs/>
 			<Button
